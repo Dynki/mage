@@ -260,7 +260,7 @@ const NftSetDetail = ({ collectionProperties, collection, nftSet, nftSets, onLik
                 <div className="dark:text-gray-400">{nftSet.likeCount}</div>
 
                 <button 
-                  // onClick={handleLike}
+                  onClick={handleLike}
                 >
                   <ToolTip
                     label="Favorite"
