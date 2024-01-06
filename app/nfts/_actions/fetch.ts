@@ -5,7 +5,11 @@ import { authOptions } from "@/lib/utils/authOptions";
 
 export const fetchNftSetById = async(nftSetId: string): Promise<NFTSetWithMeta | null> => {
   const session = await getServerSession(authOptions)
-  const { user: authenticatedUser } = session as any;
+  let authenticatedUserId = ''
+
+  if (session?.user) {
+    authenticatedUserId = session.user.id
+  }
 
   let nftSet: NFTSetDetailed  | null = await prisma.nFTSet.findFirst({
     where: {
@@ -70,7 +74,7 @@ export const fetchNftSetById = async(nftSetId: string): Promise<NFTSetWithMeta |
 
   const nftSetWithViewCount = computeViewLikeCount(
     nftSet as DetailedNFTSet, 
-    authenticatedUser?.id   
+    authenticatedUserId   
   );
 
   return nftSetWithViewCount;

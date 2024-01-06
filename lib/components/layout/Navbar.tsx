@@ -17,7 +17,7 @@ import React, { useEffect, useState } from "react";
 import { NavMenu, NavMenuItem } from "./NavMenu";
 import dynamic from "next/dynamic";
 import { MageNavigationMenu } from "./MageNavigationMenu";
-import ConnectButton from "../auth/ConnectButton";
+// import ConnectButton from "../auth/ConnectButton";
 import { signOut, useSession } from "next-auth/react";
 
 const SetTheme = dynamic(() => import("./SetTheme"), { ssr: false });
@@ -82,7 +82,7 @@ const MobileNav = () => {
           onClick={() => router.push("/collections")}
         />
         <SetTheme />
-        <ConnectButton />
+        {/* <ConnectButton /> */}
         {session &&
           <>
             <NavMenuItem 
@@ -139,7 +139,7 @@ const MenuItems = () => {
           </Link>
         </div>
         <div className="ml-auto">
-          <ConnectButton />
+          {/* <ConnectButton /> */}
         </div>
         <div className="flex justify-end md:flex-row md:ml-auto md:pl-5 md:mt-0 min-w-fit h-full mr-9 mt-2">
           <NavMenu icon={<FaRegUserCircle size={30} />} position="left">
@@ -162,7 +162,7 @@ const MenuItems = () => {
             />
             <SetTheme />
             <div className="md:hidden">
-              <ConnectButton />
+              {/* <ConnectButton /> */}
             </div>
 
           {session && (

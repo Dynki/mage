@@ -30,17 +30,17 @@ const ConnectButton = () => {
 
   useEffect(() => setMounted(true), []);
 
-  useEffect(() => {
-    if (isConnected && session && status === 'authenticated' && hasSigned === false) {
-      setHasSigned(true)
-    }
+  // useEffect(() => {
+  //   if (isConnected && session && status === 'authenticated' && hasSigned === false) {
+  //     setHasSigned(true)
+  //   }
 
-  }, [isConnected, session, status])
+  // }, [isConnected, session, status])
 
   if(!mounted) return <></>
 
   const handleSign = async () => {
-    if (!isConnected) open();
+    // if (!isConnected) open();
     try {
       const message = new SiweMessage({
         domain: window.location.host,

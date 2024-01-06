@@ -17,7 +17,7 @@ const AuthPage = () => {
   if(!mounted) return <></>
 
   const handleSign = async () => {
-    if (!isConnected) open();
+    // if (!isConnected) open();
     try {
       const message = new SiweMessage({
         domain: window.location.host,
