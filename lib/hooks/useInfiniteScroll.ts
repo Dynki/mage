@@ -9,7 +9,6 @@ export const useInfiniteScroll = (isLoading: boolean, hasNextPage: boolean | und
     if (intObserver.current) intObserver.current.disconnect();
 
     intObserver.current = new IntersectionObserver(items => {
-      console.log('items', items, hasNextPage)
       if (items[0]?.isIntersecting) {
         load();
       }  

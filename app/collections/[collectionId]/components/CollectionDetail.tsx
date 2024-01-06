@@ -46,7 +46,6 @@ const CollectionDetail = forwardRef<HTMLDivElement, ComponentProps>(
   }, [setSearchValue]);
 
   useEffect(() => {
-    console.log('CollectionDetail useEffect', collection)
     setCollection(collection);
     setCollectionProperties(collectionProperties);
   }, [collection, collectionProperties, setCollection, setCollectionProperties]);

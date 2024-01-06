@@ -1,7 +1,7 @@
 "use server";
 
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/utils/authOptions";
 import { prisma } from "@/lib/server/db/client";
 import { uploadBase64ToIpfs } from "@/lib/utils/image";
 
@@ -17,8 +17,6 @@ export const CreateCollection = async (input: CreateCollectionData) => {
       throw Error("oops");
   }
   const { user: authenticatedUser } = session as any;
-
-  console.log('Session', session)
 
   if (!authenticatedUser) {
     return ({

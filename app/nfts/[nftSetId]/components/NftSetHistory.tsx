@@ -11,8 +11,6 @@ export const NftSetHistory = ({ history }: NftSetHistoryProps) => {
   
   if (!history.length) return null
 
-  console.log('NftSetHistory', history)
-
   return (
     <CollapsePanel
       label="Item Activity"

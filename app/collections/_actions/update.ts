@@ -1,7 +1,7 @@
 "use server";
 
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/utils/authOptions";
 import { prisma } from "@/lib/server/db/client";
 import { uploadBase64ToIpfs } from "@/lib/utils/image";
 

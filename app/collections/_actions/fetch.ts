@@ -8,7 +8,7 @@ import { SERVICES_REVALIDATION_INTERVAL } from "@/lib/constants";
 import { fetchNftSets } from "@/app/nfts/[nftSetId]/actions";
 import { collectionCache } from "./cache";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/utils/authOptions";
 
 export const fetchCollection = async(collectionId: string): Promise<MageCollection> =>
   unstable_cache(
@@ -95,14 +95,10 @@ export const fetchCollectionsForUser = async(userId: string): Promise<Collection
       }
       const { user: authenticatedUser } = session as any;
     
-      // console.log('Session', session)
-    
       if (!authenticatedUser) {
         throw Error("Must be authenticated to create Collection.");
       }
     
-      // console.log('UserID', userId)
-
       const collections = await prisma.collection.findMany({
         where: {
           userId: authenticatedUser.id,
@@ -110,8 +106,6 @@ export const fetchCollectionsForUser = async(userId: string): Promise<Collection
         },
       });
 
-      console.log('collections', collections.length)
-    
       return collections;
     },
     [`getCollectionByUserId-${userId}`],

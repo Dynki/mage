@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 import { fetchCollectionsForUser } from "@/app/collections/_actions/fetch";
-import { authOptions } from "../../api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/utils/authOptions";
 import { CollectionPanel } from "../[collectionId]/components/CollectionPanel";
 import Link from "next/link";
 

@@ -12,20 +12,19 @@ import {
   FaTh,
   FaRegClock,
 } from "react-icons/fa";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
 import Link from "next/link";
 import { MdVerified } from "react-icons/md";
-import { Collection, NFTSet, NFTSetHistory, NFTSetProperties } from "prisma/prisma-client";
-import { useRouter } from "next/navigation";
-// import { useSession } from "next-auth/react";
+import { Collection, NFTSet, NFTSetProperties } from "prisma/prisma-client";
 
 import Image from "@/lib/components/controls/Image";
 import { CollapsePanel } from "@/lib/components/controls/CollapsePanel";
 import { ToolTip } from "@/lib/components/controls/ToolTip";
-import { CollectionWithNftSetCount, DetailedNFTSet, NFTSetDetailed, NFTSetWithMeta } from "@/lib//utils/computed-properties";
+import { CollectionWithNftSetCount, NFTSetWithMeta } from "@/lib//utils/computed-properties";
 
 import NftSetSummary from "./NftSetSummary";
 import { NftSetHistory } from "./NftSetHistory";
+import { LikeNFT } from "./Likes";
 
 
 const NftSetDetailSkeleton = () => (
@@ -181,13 +180,9 @@ type ComponentProps = {
   nftSets: NFTSet[];
   collection: CollectionWithNftSetCount | undefined;
   collectionProperties: CollectionNftSetProperties | null;
-  onLike: () => void;
-  onUnLike: () => void;
 };
 
-const NftSetDetail = ({ collectionProperties, collection, nftSet, nftSets, onLike, onUnLike }: ComponentProps) => {
-
-  // const { data: session } = useSession();
+const NftSetDetail = ({ collectionProperties, collection, nftSet, nftSets }: ComponentProps) => {
 
   const calcTraitPercentage = useCallback((property: NFTSetProperties) => {
 
@@ -196,9 +191,6 @@ const NftSetDetail = ({ collectionProperties, collection, nftSet, nftSets, onLik
   
       if (!nftSetsInCollection || !propertyCounts) return 0;
   
-      console.log('propertyCounts', propertyCounts, property)
-
-      // const countedProperty = propertyCounts[property.type]?.find(p => p.name === property.name && p.type === property.type);
       let countedProperty = 0
       if (propertyCounts[property.type]?.variants[property.name]) {
         countedProperty = propertyCounts[property.type].variants[property.name].length
@@ -215,24 +207,6 @@ const NftSetDetail = ({ collectionProperties, collection, nftSet, nftSets, onLik
   }
 
   const owner = nftSet.nftEditions[0]?.owner?.userId;
-
-  // const handleLike = () => {
-  //   if (!session?.user) {
-  //     router.push('/login');
-  //   } else {
-  //     setNft(prev => {
-  //       if (prev) {
-  //         if (prev.liked) {
-  //           onUnLike();
-  //           return {...prev, likeCount: prev?.likeCount-1, liked: false}
-  //         } else {
-  //           onLike();
-  //           return {...prev, likeCount: prev?.likeCount+1, liked: true}
-  //         }
-  //       }
-  //     });
-  //   }
-  // }
 
   return (
     <section className="flex flex-col w-full gap-y-4 lg:w-5/6 p-2 md:p-10">
@@ -257,21 +231,7 @@ const NftSetDetail = ({ collectionProperties, collection, nftSet, nftSets, onLik
               </ToolTip>
 
               <div className="ml-auto flex justify-end gap-3">
-                <div className="dark:text-gray-400">{nftSet.likeCount}</div>
-
-                <button 
-                  onClick={handleLike}
-                >
-                  <ToolTip
-                    label="Favorite"
-                    position="top"
-                  >
-                    <>
-                      {!nftSet.liked && <FaRegHeart size={20} className="fill-gray-400 mr-2 hover:fill-red-500" />} 
-                      {nftSet.liked && <FaHeart size={20} className="fill-red-500 mr-2" />}
-                    </>
-                  </ToolTip>
-                </button>
+                <LikeNFT nftId={nftSet.id} liked={nftSet.liked} likeCount={nftSet.likeCount}/>
               </div>
             </div>
             <div className="cursor-pointer w-full relative rounded-b-xl border border-gray-200 dark:border-gray-600 border-t-0 rounded-xl rounded-t-none overflow-hidden">

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import React from "react";
-import { useOnClickOutside } from "../../../hooks/useOnClickOutside";
+import { useOnClickOutside } from "@/lib/hooks/useOnClickOutside";
 
 type DropDownProps = {
   caption?: string;
