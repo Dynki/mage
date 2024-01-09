@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -13,17 +13,16 @@ import {
   FaRegHeart,
   FaWallet,
 } from "react-icons/fa";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { NavMenu, NavMenuItem } from "./NavMenu";
 import dynamic from "next/dynamic";
-import { MageNavigationMenu } from "./MageNavigationMenu";
 // import ConnectButton from "../auth/ConnectButton";
 import { signOut, useSession } from "next-auth/react";
+// import { NavBarSpinner } from "./NavBarSpinner";
 
 const SetTheme = dynamic(() => import("./SetTheme"), { ssr: false });
 
 const MobileNav = () => {
-  const router = useRouter();
   const { data: session, status } = useSession()
 
   return (
@@ -50,21 +49,21 @@ const MobileNav = () => {
             <FaCat size={20} className="fill-gray-700 dark:fill-gray-200" />
           }
           caption="Trade"
-          onClick={() => router.push("/trade")}
+          href="/trade"
         />
         <NavMenuItem
           icon={
             <FaCat size={20} className="fill-gray-700 dark:fill-gray-200" />
           }
           caption="Explore"
-          onClick={() => router.push("/collections/explore")}
+          href="/collections/explore"
         />
         <NavMenuItem
           icon={
             <FaImage size={20} className="fill-gray-700 dark:fill-gray-200" />
           }
           caption="Create"
-          onClick={() => router.push("/nfts/create")}
+          href="/nfts/create"
         />
         <NavMenuItem
           icon={
@@ -74,16 +73,16 @@ const MobileNav = () => {
             />
           }
           caption="Favorites"
-          onClick={() => router.push("/favorites")}
+          href="/favorites"
         />
         <NavMenuItem
           icon={<FaTh size={20} className="fill-gray-700 dark:fill-gray-200" />}
           caption="My Collections"
-          onClick={() => router.push("/collections")}
+          href="/collections"
         />
         <SetTheme />
         {/* <ConnectButton /> */}
-        {session &&
+        {/* {session &&
           <>
             <NavMenuItem 
               icon={<FaSignOutAlt size={20} className="fill-gray-700 dark:fill-gray-200"/>}
@@ -91,7 +90,7 @@ const MobileNav = () => {
               onClick={() => signOut()}
             />
           </>
-        }
+        } */}
         {/* {!sessionId && 
           <>
             <NavMenuItem 
@@ -107,7 +106,6 @@ const MobileNav = () => {
 };
 
 const MenuItems = () => {
-  const router = useRouter();
   const { data: session, status } = useSession()
 
   return (
@@ -151,21 +149,21 @@ const MenuItems = () => {
                 />
               }
               caption="Favorites"
-              onClick={() => router.push("/favorites")}
+              href="/favorites"
             />
             <NavMenuItem
               icon={
                 <FaTh size={20} className="fill-gray-700 dark:fill-gray-200" />
               }
               caption="My Collections"
-              onClick={() => router.push("/collections/my-collections")}
+              href="/collections/my-collections"
             />
             <SetTheme />
             <div className="md:hidden">
               {/* <ConnectButton /> */}
             </div>
 
-          {session && (
+          {/* {session && (
             <>
               <NavMenuItem 
                 icon={<FaSignOutAlt size={20} className="fill-gray-700 dark:fill-gray-200"/>}
@@ -173,7 +171,7 @@ const MenuItems = () => {
                 onClick={() => signOut()}
               />
             </>
-          )}
+          )} */}
           {/* {!sessionId && 
             <>
               <SetTheme/>
@@ -192,62 +190,13 @@ const MenuItems = () => {
 };
 
 const NavBar = () => {
-  const [transitioningPage, setTransitioningPage] = useState(false);
-  const router = useRouter();
-
-  //   useEffect(() => {
-  //     let startTimeout: NodeJS.Timeout;
-  //     const handleRouteChangeStart = (url: URL) => {
-  //       startTimeout = setTimeout(() => {
-  //         setTransitioningPage(true);
-  //       }, 500);
-  //     }
-
-  //     const handleRouteChangeComplete = (url: URL) => {
-  //       if (startTimeout) {
-  //         clearTimeout(startTimeout);
-  //       }
-
-  //       setTransitioningPage(false);
-  //     }
-
-  //     router.events.on('routeChangeStart', handleRouteChangeStart);
-  //     router.events.on('routeChangeComplete', handleRouteChangeComplete);
-  //     router.events.on('routeChangeError', handleRouteChangeComplete);
-
-  //     // If the component is unmounted, unsubscribe
-  //     // from the event with the `off` method:
-  //     return () => {
-  //       router.events.off('routeChangeStart', handleRouteChangeStart);
-  //       router.events.off('routeChangeComplete', handleRouteChangeComplete);
-  //       router.events.off('routeChangeError', handleRouteChangeComplete);
-
-  //       if (startTimeout) {
-  //         clearTimeout(startTimeout);
-  //       }
-  //     }
-  //   }, [router.events]);
-
   return (
     <div className="top-0 left-0 w-full fixed z-[20000] bg-white dark:bg-slate-800">
       <nav className="relative container mx-auto px-6 py-2 md:p-0 md:py-3 pl-0 border-b border-gray-200 dark:border-gray-600">
         <div className="flex items-center justify-between">
           <Link href="/" passHref>
             <div className="flex items-center">
-              <div className="hidden md:block">
-                <FaCircleNotch
-                  size={20}
-                  className={`
-                  mr-3
-                  mt-4
-                  fill-gray-700 
-                  ${
-                    transitioningPage
-                      ? "animate-spin dark:fill-gray-200 fill-blue-500"
-                      : "fill-white dark:fill-slate-800"
-                  }`}
-                />
-              </div>
+              {/* <NavBarSpinner /> */}
               <span
                 className={`
                 ml-4 md:ml-0
@@ -259,20 +208,6 @@ const NavBar = () => {
               >
                 Mage
               </span>
-              <div className="md:hidden">
-                <FaCircleNotch
-                  size={15}
-                  className={`
-                  ml-3 
-                  mt-6
-                  fill-gray-700 
-                  ${
-                    transitioningPage
-                      ? "animate-spin dark:fill-gray-200 fill-blue-500"
-                      : "fill-white dark:fill-slate-800"
-                  }`}
-                />
-              </div>
             </div>
           </Link>
           <div className="w-full hidden md:flex">

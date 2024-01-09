@@ -1,6 +1,9 @@
+"use client"
+
 import { useState } from "react";
 import React from "react";
 import { useOnClickOutside } from "../../hooks/useOnClickOutside";
+import Link from "next/link";
 
 type NavMenuProps = {
   caption?: string;
@@ -13,39 +16,46 @@ type NavMenuProps = {
 type NavMenuItemProps = {
   caption: string;
   icon?: React.ReactElement;
-  onClick: () => void;
+  href?: string;
+  onClick?: () => void;
 }
 
-export const NavMenuItem = ({ caption, icon, onClick }: NavMenuItemProps) => (
-  <div 
-    className="
-      border-b 
-      border-b-gray-300 
-      flex 
-      gap-5
-      p-5 
-      items-center 
-      justify-start 
-      cursor-pointer 
-      bg-black bg-opacity-0
-      dark:bg-white dark:bg-opacity-0
-      dark:hover:bg-opacity-10
-      hover:bg-opacity-5
-      hover:text-blue-500
-      hover:fill-blue-500
-      dark:hover:text-white
-      dark:hover:fill-white
-      last:border-0
-      text-gray-700 dark:text-gray-200
-      font-bold
-    " 
-    onClick={onClick}
-  >
-    {icon && React.cloneElement(icon, { 
-      className: `${icon.props.classes} hover:fill-blue-500 dark:hover:fill-gray-400`
-    })}
-    <div>{caption}</div>
-  </div>
+const NavMenuItemWrapper = ({ children, href }: { children: React.ReactNode, href?: string }) => {
+  return href ? <Link href={href}>{children}</Link> : <></>
+}
+
+export const NavMenuItem = ({ caption, icon, href, onClick }: NavMenuItemProps) => (
+  <NavMenuItemWrapper href={href}>
+    <div 
+      className="
+        border-b 
+        border-b-gray-300 
+        flex 
+        gap-5
+        p-5 
+        items-center 
+        justify-start 
+        cursor-pointer 
+        bg-black bg-opacity-0
+        dark:bg-white dark:bg-opacity-0
+        dark:hover:bg-opacity-10
+        hover:bg-opacity-5
+        hover:text-blue-500
+        hover:fill-blue-500
+        dark:hover:text-white
+        dark:hover:fill-white
+        last:border-0
+        text-gray-700 dark:text-gray-200
+        font-bold
+      "
+      onClick={onClick}
+    >
+      {icon && React.cloneElement(icon, { 
+        className: `${icon.props.classes} hover:fill-blue-500 dark:hover:fill-gray-400`
+      })}
+      <div>{caption}</div>
+    </div>
+  </NavMenuItemWrapper>
 );
 
 export const NavMenu = ({ caption, children, icon, activeIcon }: NavMenuProps) => {
