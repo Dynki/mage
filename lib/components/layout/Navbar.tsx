@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import {
   FaCat,
   FaCircleNotch,
@@ -42,7 +41,7 @@ const MobileNav = () => {
         {/* <NavMenuItem
           icon={<FaDollarSign size={20} className="fill-gray-700 dark:fill-gray-200"/>}
           caption="Trade"
-          onClick={() => router.push("/trade")}
+          href="/trade"
         /> */}
         <NavMenuItem
           icon={
@@ -82,7 +81,7 @@ const MobileNav = () => {
         />
         <SetTheme />
         {/* <ConnectButton /> */}
-        {/* {session &&
+        {session &&
           <>
             <NavMenuItem 
               icon={<FaSignOutAlt size={20} className="fill-gray-700 dark:fill-gray-200"/>}
@@ -90,16 +89,16 @@ const MobileNav = () => {
               onClick={() => signOut()}
             />
           </>
-        } */}
-        {/* {!sessionId && 
+        }
+        {!session && 
           <>
             <NavMenuItem 
               icon={<FaWallet size={20} className="fill-gray-700 dark:fill-gray-200 "/>}
-              caption="Log In" 
-              onClick={() => router.push('/login')}
+              caption="Log In"
+              href="/login"
             />
           </>
-        } */}
+        }
       </NavMenu>
     </div>
   );
@@ -163,7 +162,7 @@ const MenuItems = () => {
               {/* <ConnectButton /> */}
             </div>
 
-          {/* {session && (
+          {session && (
             <>
               <NavMenuItem 
                 icon={<FaSignOutAlt size={20} className="fill-gray-700 dark:fill-gray-200"/>}
@@ -171,17 +170,17 @@ const MenuItems = () => {
                 onClick={() => signOut()}
               />
             </>
-          )} */}
-          {/* {!sessionId && 
+          )}
+          {!session && 
             <>
               <SetTheme/>
               <NavMenuItem 
                 icon={<FaWallet size={20} className="fill-gray-700 dark:fill-gray-200 "/>}
-                caption="Log In" 
-                onClick={() => router.push('/login')}
+                caption="Log In"
+                href="/login" 
               />
             </>
-          } */}
+          }
           </NavMenu>
         </div>
       </div>

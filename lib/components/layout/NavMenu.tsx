@@ -21,15 +21,16 @@ type NavMenuItemProps = {
 }
 
 const NavMenuItemWrapper = ({ children, href }: { children: React.ReactNode, href?: string }) => {
-  return href ? <Link href={href}>{children}</Link> : <></>
+  return href ? (
+    <div className="border-b border-b-gray-300 last:border-0">
+      <Link href={href}>{children}</Link>
+    </div>) : <></>
 }
 
 export const NavMenuItem = ({ caption, icon, href, onClick }: NavMenuItemProps) => (
   <NavMenuItemWrapper href={href}>
     <div 
       className="
-        border-b 
-        border-b-gray-300 
         flex 
         gap-5
         p-5 
@@ -44,7 +45,6 @@ export const NavMenuItem = ({ caption, icon, href, onClick }: NavMenuItemProps) 
         hover:fill-blue-500
         dark:hover:text-white
         dark:hover:fill-white
-        last:border-0
         text-gray-700 dark:text-gray-200
         font-bold
       "
